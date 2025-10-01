@@ -167,5 +167,15 @@ pip-log.txt
 #############
 
 log*
-*.ttf
+#*.ttf
 .checkstyle
+
+#############
+## IntelliJ
+#############
+out/
+.idea/
+*.log
+
+# team iml files
+*.iml
