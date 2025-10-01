@@ -70,6 +70,7 @@ public class GameScreen extends Screen {
 	private boolean levelFinished;
 	/** Checks if a bonus life is received. */
 	private boolean bonusLife;
+	/** [CHANGE][2025-10-01][PR #1] GameState → GameScreen 코인 주입 */
 	private int coins;
 
 	/**
@@ -102,7 +103,7 @@ public class GameScreen extends Screen {
 			this.lives++;
 		this.bulletsShot = gameState.getBulletsShot();
 		this.shipsDestroyed = gameState.getShipsDestroyed();
-		this.coins = gameState.getCoins();
+		this.coins = gameState.getCoins(); // 생성자에서: this.coins = gameState.getCoins();
 	}
 
 	/**
@@ -336,6 +337,7 @@ public class GameScreen extends Screen {
 	 *
 	 * @return Current game state.
 	 */
+	/** [CHANGE][2025-10-01][PR #1] 상태 스냅샷에 코인 포함 */
 	public final GameState getGameState() {
 		return new GameState(this.level, this.score, this.lives,
 				this.bulletsShot, this.shipsDestroyed, this.coins);
