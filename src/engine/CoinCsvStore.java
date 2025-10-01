@@ -5,20 +5,18 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.*;
 
-public final class ScoreCsvStore {
+public final class CoinCsvStore {
     private static final Path DIR = Paths.get(System.getProperty("user.home"), ".invaders");
-    private static final Path CSV = DIR.resolve("records.csv");
-    private static final String HEADER = "timestamp,score,level,lives,bullets,ships,coins";
+    private static final Path CSV = DIR.resolve("coin.csv");
     private static final String COINS_PREFIX = "COINS";
 
-    private ScoreCsvStore() {}
+    private CoinCsvStore() {}
 
     private static void ensureFile() throws IOException {
         if (!Files.exists(DIR)) Files.createDirectories(DIR);
         if (!Files.exists(CSV)) {
             List<String> init = new ArrayList<>();
             init.add(COINS_PREFIX + ",0");
-            init.add(HEADER);
             Files.write(CSV, init, StandardCharsets.UTF_8, StandardOpenOption.CREATE_NEW);
         }
     }
@@ -39,13 +37,8 @@ public final class ScoreCsvStore {
         try {
             ensureFile();
             List<String> lines = Files.readAllLines(CSV, StandardCharsets.UTF_8);
-            if (lines.isEmpty()) {
-                lines.add(COINS_PREFIX + "," + coins);
-                lines.add(HEADER);
-            } else {
-                lines.set(0, COINS_PREFIX + "," + coins);
-                if (lines.size() == 1) lines.add(HEADER);
-            }
+            if (lines.isEmpty()) lines.add(COINS_PREFIX + "," + coins);
+            else lines.set(0, COINS_PREFIX + "," + coins);
             Files.write(CSV, lines, StandardCharsets.UTF_8, StandardOpenOption.TRUNCATE_EXISTING);
         } catch (Exception e) { e.printStackTrace(); }
     }

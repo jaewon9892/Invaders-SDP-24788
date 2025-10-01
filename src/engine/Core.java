@@ -116,7 +116,7 @@ public final class Core {
 
 		int returnCode = 1;
 		do {
-			int savedCoins = ScoreCsvStore.loadCoins();
+			int savedCoins = CoinCsvStore.loadCoins();
 			gameState = new GameState(1, 0, MAX_LIVES, 0, 0, savedCoins);
 
 			switch (returnCode) {
@@ -156,7 +156,7 @@ public final class Core {
 					} while (gameState.getLivesRemaining() > 0
 							&& gameState.getLevel() <= NUM_LEVELS);
 
-					ScoreCsvStore.saveCoins(gameState.getCoins());
+					CoinCsvStore.saveCoins(gameState.getCoins());
 
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
 							+ " score screen at " + FPS + " fps, with a score of "
