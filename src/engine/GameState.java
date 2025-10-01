@@ -18,6 +18,7 @@ public class GameState {
 	private int bulletsShot;
 	/** Ships destroyed until now. */
 	private int shipsDestroyed;
+	/** [CHANGE][2025-10-01][PR #1] 코인 상태 필드 추가 */
 	/** Total coins collected by the player. */
 	private int coins;
 
@@ -37,6 +38,7 @@ public class GameState {
 	 * @param coins
 	 * 			  Coins collected by the player.
 	 */
+	/** [CHANGE][2025-10-01][PR #1] 스냅샷 생성자에 coins 인자 포함 */
 	public GameState(final int level, final int score,
 					 final int livesRemaining, final int bulletsShot,
 					 final int shipsDestroyed, final int coins) {
@@ -83,6 +85,7 @@ public class GameState {
 		return shipsDestroyed;
 	}
 
+	/** [CHANGE][2025-10-01][PR #1] 코인 API: get/add/spend(옵션 set) */
 	public int getCoins() { return coins; }
 	public void addCoins(int delta) { if (delta > 0) coins += delta; }
 	public boolean spendCoins(int amount) {

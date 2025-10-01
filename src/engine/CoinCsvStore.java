@@ -5,6 +5,11 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.*;
 import java.util.*;
 
+/* [CHANGE][2025-10-01][PR #1]
+ * 코인 영속화 도입: ~/.invaders/coin.csv 사용
+ * - ensureFile(): coin.csv 생성/보정
+ * - loadCoins(), saveCoins(): 첫 줄 "COINS,<int>" 입출력
+ */
 public final class CoinCsvStore {
     private static final Path DIR = Paths.get(System.getProperty("user.home"), ".invaders");
     private static final Path CSV = DIR.resolve("coin.csv");

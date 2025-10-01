@@ -116,6 +116,7 @@ public final class Core {
 
 		int returnCode = 1;
 		do {
+			// [CHANGE][2025-10-01][PR #1] 게임 시작 시 코인 로드 (coin.csv → GameState)
 			int savedCoins = CoinCsvStore.loadCoins();
 			gameState = new GameState(1, 0, MAX_LIVES, 0, 0, savedCoins);
 
@@ -156,6 +157,7 @@ public final class Core {
 					} while (gameState.getLivesRemaining() > 0
 							&& gameState.getLevel() <= NUM_LEVELS);
 
+					// [CHANGE][2025-10-01][PR #1] 게임 종료 시 코인 저장 (GameState → coin.csv)
 					CoinCsvStore.saveCoins(gameState.getCoins());
 
 					LOGGER.info("Starting " + WIDTH + "x" + HEIGHT
