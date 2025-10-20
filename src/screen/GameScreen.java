@@ -92,7 +92,6 @@ public class GameScreen extends Screen {
     /** checks if player took damage
      * 2025-10-02 add new variable
      * */
-    private boolean tookDamageThisLevel;
     private boolean countdownSoundPlayed = false;
 
     private final GameState state;
@@ -142,7 +141,6 @@ public class GameScreen extends Screen {
 
         // for check Achievement 2025-10-02 add
         this.achievementManager = achievementManager;
-        this.tookDamageThisLevel = false;
 
 //        try {
 //            List<Score> highScores = Core.getFileManager().loadHighScores();
@@ -548,7 +546,7 @@ public class GameScreen extends Screen {
                         state.decLife(p); // decrement shared/team lives by 1
 
                         // Record damage for Survivor achievement check
-                        this.tookDamageThisLevel = true;
+                        state.isTookdamage();
 
                         drawManager.setLastLife(state.getLivesRemaining() == 1);
                         drawManager.setDeath(state.getLivesRemaining() == 0);
@@ -661,7 +659,8 @@ public class GameScreen extends Screen {
             float p1Acc = state.getBulletsShot(0) > 0 ? (float) state.getShipsDestroyed(0) / state.getBulletsShot(0)*100 : 0f;
             float p2Acc = state.getBulletsShot(1) > 0 ? (float) state.getShipsDestroyed(1) / state.getBulletsShot(1)*100 : 0f;
             // Survivor
-            if(!this.tookDamageThisLevel){
+
+            if(!state.checktookdamage()){
                 achievementManager.unlock("Survivor");
             }
             //Sharpshooter

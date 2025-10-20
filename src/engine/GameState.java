@@ -33,6 +33,9 @@ public class GameState {
 	private int teamLives;
 	private int teamLivesCap;
 
+    // check ship damaged for achievement
+    private boolean tookdamage;
+
 	/** Current coin count. */ // ADD THIS LINE
     private static int coins = 0; // ADD THIS LINE - edited for 2P mode
 
@@ -57,6 +60,7 @@ public class GameState {
 		this.level = level;
 		this.coop = coop;
         this.coins = coin;
+        this.tookdamage = false;
 
 		if (coop) {
 			this.sharedLives = true;
@@ -236,6 +240,8 @@ public class GameState {
         }
     }
 
+    public void isTookdamage(){ tookdamage = true;}
+    public boolean checktookdamage(){return tookdamage;}
 
     public int getLevel() {
 		return level;
