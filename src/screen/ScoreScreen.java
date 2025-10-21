@@ -132,8 +132,8 @@ public class ScoreScreen extends Screen {
 				this.isRunning = false;
 				if (this.isNewRecord) {
 					saveScore();
-					saveAchievement(); //2025-10-03 call method for save achievement released
 				}
+                saveAchievement(); //2025-10-03 call method for save achievement released
 			} else if (inputManager.isKeyDown(KeyEvent.VK_SPACE)) {
                 // name too short -> return
                 if (this.name.length() < 3) return;
@@ -143,8 +143,8 @@ public class ScoreScreen extends Screen {
 				this.isRunning = false;
 				if (this.isNewRecord) {
 					saveScore();
-					saveAchievement(); // 2025-10-03 call method for save achievement released
 				}
+                saveAchievement(); // 2025-10-03 call method for save achievement released
 			}
 
 			// Handle backspace

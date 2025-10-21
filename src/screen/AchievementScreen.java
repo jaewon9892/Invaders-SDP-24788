@@ -32,8 +32,15 @@ public class AchievementScreen extends Screen {
         achievementManager = Core.getAchievementManager();
         achievements = achievementManager.getAchievements();
         fileManager = Core.getFileManager();
-        this.completer = Core.getFileManager().getAchievementCompleter(achievements.get(currentIdx));
+        pageSetting();
+        // Start menu music loop when the achievement screen is created
         this.returnCode = 3;
+        SoundManager.playLoop("sound/menu_sound.wav");
+    }
+
+    private void pageSetting(){
+        this.completer = Core.getFileManager().getAchievementCompleter(achievements.get(currentIdx));
+
         this.completer1P = completer.stream()
                 .filter(s -> s.startsWith("1:"))
                 .collect(Collectors.toList());
@@ -44,8 +51,12 @@ public class AchievementScreen extends Screen {
                 (int) Math.ceil((double) completer1P.size() / PAGE),
                 (int) Math.ceil((double) completer2P.size() / PAGE)
         ) - 1;
-        // Start menu music loop when the achievement screen is created
-        SoundManager.playLoop("sound/menu_sound.wav");
+
+        if (this.maxPage < 0) this.maxPage = 0;
+
+        if (this.currentPage > this.maxPage) this.currentPage = this.maxPage;
+
+        this.numOfPages = (currentPage + 1) + " / " + (maxPage + 1);
     }
 
     public final int run() {
@@ -63,14 +74,14 @@ public class AchievementScreen extends Screen {
         // and reload the completer list for the newly selected achievement.
         if (inputManager.isKeyDown(KeyEvent.VK_RIGHT) && inputDelay.checkFinished()) {
             currentIdx = (currentIdx + 1) % achievements.size();
-            completer = fileManager.getAchievementCompleter(achievements.get(currentIdx));
             this.currentPage = 0;
+            pageSetting();
             inputDelay.reset();
         }
         if (inputManager.isKeyDown(KeyEvent.VK_LEFT) && inputDelay.checkFinished()) {
             currentIdx = (currentIdx - 1 + achievements.size()) % achievements.size();
-            completer = fileManager.getAchievementCompleter(achievements.get(currentIdx));
             this.currentPage = 0;
+            pageSetting();
             inputDelay.reset();
         }
 
